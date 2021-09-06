@@ -95,7 +95,7 @@ class Employee {
         "fcm": fcm != null ? fcm : '',
       };
 
-  addContact(ContactHistory contact) {
+  bool addContact(ContactHistory contact) {
     if(this.contactHistory == null) this.contactHistory = [];
     var canAdd = true;
     this.contactHistory!.forEach((element) {
@@ -106,6 +106,7 @@ class Employee {
       }
     });
     if (canAdd) this.contactHistory!.add(contact); // add contact if there's no previous record
+    return canAdd;
   }
 
   Future<List<Employee>> getEmployeeContacts() async {
