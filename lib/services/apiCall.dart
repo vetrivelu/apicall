@@ -6,11 +6,11 @@ import 'package:http/http.dart' as http;
 Future<dynamic> getApiResponse() async {
   // var host = "https://plastic-pug-72.loca.lt";
   // ignore: unnecessary_brace_in_string_interps
-  var url = Uri.parse('http://api.ieasygroup.com:8091/viewdata.jsp?mac=68B9D38C4C78');
+  var url = Uri.parse('https://pikas.techinsight.com.my/kgateway/testing.php');
 
   
   try {
-    var response = await http.get(url, headers: {"Content-Type": "text/html"});
+    var response = await http.get(url, headers: {"Content-Type": "text/json"});
     var text = response.body.toString();
     var jsonData = [];
     List<ContactDevices> conatcts;

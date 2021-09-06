@@ -38,7 +38,7 @@ makeContacts(String deviceID, List<ContactDevices> connections ) async {
     // profile.contactHistory!.add(
     //   ContactHistory(contact: employee!.uid, time: DateTime.now())
     // );
-    profile.addContact(ContactHistory(contact: employee!.uid, time: DateTime.now()));
+    profile.addContact(ContactHistory(contact: employee!.uid, time: DateTime.now(), fcm : employee.fcm!));
     await updateProfilebyUid(profile);
   });
 }

@@ -1,4 +1,5 @@
 class Uuid {
+  // ignore: avoid_init_to_null
   Uuid({required this.uid, required this.deviceId, this.contacts = null});
   String uid;
   String deviceId;

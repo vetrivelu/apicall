@@ -9,18 +9,19 @@ import 'package:flutter/material.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-   
+
   Timer.periodic(Duration(seconds: 10), (Timer timer) async {
-  List<dynamic> jsonData = await getApiResponse();
-  jsonData.forEach((element) async {
-    if(element["uuid"]!=null && element["minorID"] !=null){
-      var test = Uuid(uid: element["uuid"],deviceId:  element["minorID"].toString());
-      var connections =  test.parseString();
-      if(connections!= null)
-      await makeContacts( element["minorID"].toString() , connections);
-    }
+    List<dynamic> jsonData = await getApiResponse();
+    jsonData.forEach((element) async {
+      if (element["uuid"] != null && element["minorID"] != null) {
+        var test =
+            Uuid(uid: element["uuid"], deviceId: element["minorID"].toString());
+        var connections = test.parseString();
+        if (connections != null)
+          await makeContacts(element["minorID"].toString(), connections);
+      }
+    });
   });
-    }); 
   runApp(MyApp());
 }
 
@@ -39,19 +40,14 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-
         title: Text('title'),
       ),
       body: Center(
-
         child: Column(
-
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
@@ -65,9 +61,8 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed:  (){
+        onPressed: () {
           // getProfileByDeviceId('122');
-
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
