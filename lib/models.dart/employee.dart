@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 import 'package:apicall/services/db.dart';
-import 'package:flutter/cupertino.dart';
 
 Employee employeeFromJson(String str) => Employee.fromJson(json.decode(str));
 
@@ -97,14 +96,16 @@ class Employee {
       };
 
   addContact(ContactHistory contact) {
+    if(this.contactHistory == null) this.contactHistory = [];
     var canAdd = true;
     this.contactHistory!.forEach((element) {
-      if (element.contact == contact.contact) {
-        element.time = contact.time;
-        canAdd = false;
+      if (element.contact == contact.contact) { // Checking if contact already exists
+        if(element.time.difference(contact.time).inHours > 5 ){ //checking if the last contact is more than 5 hours 
+           element.time = contact.time; // if yes update the time
+        } canAdd = false; // and don't add
       }
     });
-    if (canAdd) this.contactHistory!.add(contact);
+    if (canAdd) this.contactHistory!.add(contact); // add contact if there's no previous record
   }
 
   Future<List<Employee>> getEmployeeContacts() async {

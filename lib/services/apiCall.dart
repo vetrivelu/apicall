@@ -8,26 +8,35 @@ Future<dynamic> getApiResponse() async {
   // ignore: unnecessary_brace_in_string_interps
   var url = Uri.parse('https://pikas.techinsight.com.my/kgateway/testing.php');
 
-  
   try {
-    var response = await http.get(url, headers: {"Content-Type": "text/json"});
+    var response = await http.get(url, headers: {"Content-Type": "text/html"});
+
     var text = response.body.toString();
-    var jsonData = [];
+
     List<ContactDevices> conatcts;
-    printWrapped(text);
+    // printWrapped(text);
     if (response.statusCode == 200) {
       var string = response.body.toString();
+      int i =0;
       var json = [];
       // var strings =  string.split('/{([^}]+)}/');
-      final pattern = RegExp(r"{([^}]+)}");
-      pattern.allMatches(string).forEach((match) => jsonData.add(match));
-      jsonData.forEach((element) { 
-        json.add(jsonDecode(element.group(0)));
+      // final pattern = RegExp(r"{([^}]+)}");
+      final pattern = RegExp("(?<=\\[)[^\\[\\]]*(?=\\])");
+      pattern.allMatches(string).forEach((match) {
+        json.addAll(jsonDecode('['+  match.group(0)! +']'));
+        i++;
       });
+      print("=====================================");
+      print(i);
+      print(json.length);
+      print("=====================================");
+      // json.forEach((element) {
+      //   jsonData.add(jsonDecode(element.group(0)));
+      // });
       return json;
     }
   } catch (error) {
-     print(error);
+    print(error);
     return error;
   }
 }

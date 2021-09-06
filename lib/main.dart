@@ -10,7 +10,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  Timer.periodic(Duration(seconds: 10), (Timer timer) async {
+  // Timer.periodic(Duration(seconds: 10), (Timer timer) async {
     List<dynamic> jsonData = await getApiResponse();
     jsonData.forEach((element) async {
       if (element["uuid"] != null && element["minorID"] != null) {
@@ -21,7 +21,7 @@ Future<void> main() async {
           await makeContacts(element["minorID"].toString(), connections);
       }
     });
-  });
+  // });
   runApp(MyApp());
 }
 
